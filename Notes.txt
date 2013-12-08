@@ -1,0 +1,1 @@
+srcds.exe -game csgo -console -usercon -autoupdate +game_type 1 +game_mode 0 +mapgroup mg_armsrace +map ar_shoots +ip 0.0.0.0 +net_public_adr 0.0.0.0

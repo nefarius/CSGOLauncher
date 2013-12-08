@@ -23,12 +23,12 @@ namespace CSGOLauncher
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show(new CSGOAttributes().GetComandLine());
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            lPublicIP.Text = IPHelper.PublicIpAddress;
+            // lPublicIP.Text = IPHelper.PublicIpAddress;
             lPrivateIP.Text = IPHelper.PrivateIpAddress;
         }
     }
