@@ -6,11 +6,15 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace CSGOLauncher
 {
     public static class IPHelper
     {
+        /// <summary>
+        /// Returns the private IP address from the first adapter found on the client machine.
+        /// </summary>
         public static string PrivateIpAddress
         {
             get
@@ -19,6 +23,9 @@ namespace CSGOLauncher
             }
         }
 
+        /// <summary>
+        /// Queries checkip.dyndns.org to retrieve the public visible IP address.
+        /// </summary>
         public static string PublicIpAddress
         {
             get
@@ -40,6 +47,11 @@ namespace CSGOLauncher
 
                 return ip.Matches(content)[0].ToString();
             }
+        }
+
+        public static void NATHelper()
+        {
+            Process.Start("http://portforward.com/english/routers/port_forwarding/");
         }
     }
 }

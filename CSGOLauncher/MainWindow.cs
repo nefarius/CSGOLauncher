@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace CSGOLauncher
 {
@@ -59,7 +52,7 @@ namespace CSGOLauncher
 
         private void llNATHowTo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("http://portforward.com/english/routers/port_forwarding/");
+            IPHelper.NATHelper();
         }
 
         private void cbUseConsole_CheckedChanged(object sender, EventArgs e)

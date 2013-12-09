@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Xml.Serialization;
+﻿using System.IO;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace CSGOLauncher
 {
@@ -43,7 +39,6 @@ namespace CSGOLauncher
             {
                 using (StreamWriter str = new StreamWriter(ConfigFilePath, false))
                 {
-
                     XmlSerializer ser = new XmlSerializer(typeof(CSGOAttributes));
                     ser.Serialize(str, value);
                 }
