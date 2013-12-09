@@ -22,9 +22,9 @@ namespace CSGOLauncher
         {
 #if DEBUG
             MessageBox.Show(curCfg.GetComandLine());
-#elif RELEASE
+#else
             curCfg.StartServer();
-            this.Close();
+            btnClose_Click(sender, e);
 #endif
         }
 
@@ -43,6 +43,10 @@ namespace CSGOLauncher
 
             cbUseConsole.Checked = curCfg.UseConsole;
             cbUseRcon.Checked = curCfg.UseRcon;
+            cbLanMode.Checked = curCfg.LanMode;
+
+            tbMapGroup.Text = curCfg.MapGroup;
+            tbMap.Text = curCfg.Map;
         }
 
         private void cbbGameMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,6 +67,21 @@ namespace CSGOLauncher
         private void cbUseRcon_CheckedChanged(object sender, EventArgs e)
         {
             curCfg.UseRcon = (sender as CheckBox).Checked;
+        }
+
+        private void tbMapGroup_TextChanged(object sender, EventArgs e)
+        {
+            curCfg.MapGroup = (sender as TextBox).Text;
+        }
+
+        private void tbMap_TextChanged(object sender, EventArgs e)
+        {
+            curCfg.Map = (sender as TextBox).Text;
+        }
+
+        private void cbLanMode_CheckedChanged(object sender, EventArgs e)
+        {
+            curCfg.LanMode = (sender as CheckBox).Checked;
         }
     }
 }

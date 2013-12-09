@@ -12,8 +12,7 @@ namespace CSGOLauncher
             StringBuilder cmdLine = new StringBuilder();
             string strGameTypeLine = "+game_type {0} +game_mode {1} ";
 
-            cmdLine.AppendFormat("{0} ", ServerBinName);
-            cmdLine.AppendFormat("-game {0} ", this.GameType);
+            cmdLine.AppendFormat(" -game {0} ", this.GameType);
             if (UseConsole) cmdLine.Append("-console ");
             if (UseRcon) cmdLine.AppendFormat("-usercon ");
             if (AutoUpdate) cmdLine.AppendFormat("-autoupdate ");
@@ -38,8 +37,14 @@ namespace CSGOLauncher
                 cmdLine.AppendFormat("+map {0} ", Map);
             if(!string.IsNullOrEmpty(PrivateIP))
                 cmdLine.AppendFormat("+ip {0} ", PrivateIP);
-            if(!string.IsNullOrEmpty(PublicIP))
-                cmdLine.AppendFormat("+net_public_adr {0} ", PublicIP);
+            if (LanMode)
+                cmdLine.AppendFormat("+sv_lan 1 ");
+            else
+            {
+                cmdLine.AppendFormat("+sv_lan 0 ");
+                if (!string.IsNullOrEmpty(PublicIP))
+                    cmdLine.AppendFormat("+net_public_adr {0} ", PublicIP);
+            }
 
             return cmdLine.ToString();
         }

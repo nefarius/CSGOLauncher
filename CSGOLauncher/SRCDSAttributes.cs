@@ -19,6 +19,7 @@ namespace CSGOLauncher
         public string PrivateIP { get; set; }
         public string PublicIP { get; set; }
         public string Map { get; set; }
+        public bool LanMode { get; set; }
 
         public virtual string GetComandLine()
         {
@@ -27,7 +28,7 @@ namespace CSGOLauncher
 
         public virtual void StartServer()
         {
-            Process.Start(Path.Combine(LauncherConfig.CurrentDirectory, GetComandLine()));
+            Process.Start(Path.Combine(LauncherConfig.CurrentDirectory, this.ServerBinName), GetComandLine());
         }
     }
 
