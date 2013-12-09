@@ -31,33 +31,43 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.gbInfo = new System.Windows.Forms.GroupBox();
-            this.gbSettings = new System.Windows.Forms.GroupBox();
+            this.llNATHowTo = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lPublicIP = new System.Windows.Forms.Label();
             this.lPrivateIP = new System.Windows.Forms.Label();
+            this.gbSettings = new System.Windows.Forms.GroupBox();
+            this.tbMap = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbMapGroup = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbbGameMode = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbUseRcon = new System.Windows.Forms.CheckBox();
+            this.cbUseConsole = new System.Windows.Forms.CheckBox();
             this.gbInfo.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.gbSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(395, 257);
+            this.btnClose.Location = new System.Drawing.Point(157, 265);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(108, 23);
             this.btnClose.TabIndex = 0;
-            this.btnClose.Text = "Close";
+            this.btnClose.Text = "Save && Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(314, 257);
+            this.btnStart.Location = new System.Drawing.Point(43, 265);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.Size = new System.Drawing.Size(108, 23);
             this.btnStart.TabIndex = 1;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -65,22 +75,28 @@
             // 
             // gbInfo
             // 
+            this.gbInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbInfo.Controls.Add(this.llNATHowTo);
             this.gbInfo.Controls.Add(this.tableLayoutPanel1);
             this.gbInfo.Location = new System.Drawing.Point(13, 13);
             this.gbInfo.Name = "gbInfo";
-            this.gbInfo.Size = new System.Drawing.Size(457, 93);
+            this.gbInfo.Size = new System.Drawing.Size(252, 101);
             this.gbInfo.TabIndex = 2;
             this.gbInfo.TabStop = false;
             this.gbInfo.Text = "Info";
             // 
-            // gbSettings
+            // llNATHowTo
             // 
-            this.gbSettings.Location = new System.Drawing.Point(13, 112);
-            this.gbSettings.Name = "gbSettings";
-            this.gbSettings.Size = new System.Drawing.Size(457, 139);
-            this.gbSettings.TabIndex = 3;
-            this.gbSettings.TabStop = false;
-            this.gbSettings.Text = "Settings";
+            this.llNATHowTo.AutoSize = true;
+            this.llNATHowTo.Location = new System.Drawing.Point(6, 72);
+            this.llNATHowTo.Name = "llNATHowTo";
+            this.llNATHowTo.Size = new System.Drawing.Size(234, 13);
+            this.llNATHowTo.TabIndex = 1;
+            this.llNATHowTo.TabStop = true;
+            this.llNATHowTo.Text = "Need help configuring your Router? Click here...";
+            this.llNATHowTo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llNATHowTo_LinkClicked);
             // 
             // tableLayoutPanel1
             // 
@@ -139,11 +155,105 @@
             this.lPrivateIP.TabIndex = 3;
             this.lPrivateIP.Text = "Reading...";
             // 
+            // gbSettings
+            // 
+            this.gbSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbSettings.Controls.Add(this.tbMap);
+            this.gbSettings.Controls.Add(this.label5);
+            this.gbSettings.Controls.Add(this.tbMapGroup);
+            this.gbSettings.Controls.Add(this.label4);
+            this.gbSettings.Controls.Add(this.cbbGameMode);
+            this.gbSettings.Controls.Add(this.label3);
+            this.gbSettings.Controls.Add(this.cbUseRcon);
+            this.gbSettings.Controls.Add(this.cbUseConsole);
+            this.gbSettings.Location = new System.Drawing.Point(13, 112);
+            this.gbSettings.Name = "gbSettings";
+            this.gbSettings.Size = new System.Drawing.Size(252, 147);
+            this.gbSettings.TabIndex = 3;
+            this.gbSettings.TabStop = false;
+            this.gbSettings.Text = "Settings";
+            // 
+            // tbMap
+            // 
+            this.tbMap.Location = new System.Drawing.Point(83, 117);
+            this.tbMap.Name = "tbMap";
+            this.tbMap.Size = new System.Drawing.Size(121, 20);
+            this.tbMap.TabIndex = 7;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(46, 120);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(31, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Map:";
+            // 
+            // tbMapGroup
+            // 
+            this.tbMapGroup.Location = new System.Drawing.Point(83, 91);
+            this.tbMapGroup.Name = "tbMapGroup";
+            this.tbMapGroup.Size = new System.Drawing.Size(121, 20);
+            this.tbMapGroup.TabIndex = 5;
+            this.tbMapGroup.Text = "mg_bomb_se";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 94);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Map Group:";
+            // 
+            // cbbGameMode
+            // 
+            this.cbbGameMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbGameMode.FormattingEnabled = true;
+            this.cbbGameMode.Location = new System.Drawing.Point(83, 64);
+            this.cbbGameMode.Name = "cbbGameMode";
+            this.cbbGameMode.Size = new System.Drawing.Size(121, 21);
+            this.cbbGameMode.TabIndex = 3;
+            this.cbbGameMode.SelectedIndexChanged += new System.EventHandler(this.cbbGameMode_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 67);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(68, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Game Mode:";
+            // 
+            // cbUseRcon
+            // 
+            this.cbUseRcon.AutoSize = true;
+            this.cbUseRcon.Location = new System.Drawing.Point(12, 42);
+            this.cbUseRcon.Name = "cbUseRcon";
+            this.cbUseRcon.Size = new System.Drawing.Size(142, 17);
+            this.cbUseRcon.TabIndex = 1;
+            this.cbUseRcon.Text = "Allow Rcon Connections";
+            this.cbUseRcon.UseVisualStyleBackColor = true;
+            this.cbUseRcon.CheckedChanged += new System.EventHandler(this.cbUseRcon_CheckedChanged);
+            // 
+            // cbUseConsole
+            // 
+            this.cbUseConsole.AutoSize = true;
+            this.cbUseConsole.Location = new System.Drawing.Point(12, 19);
+            this.cbUseConsole.Name = "cbUseConsole";
+            this.cbUseConsole.Size = new System.Drawing.Size(120, 17);
+            this.cbUseConsole.TabIndex = 0;
+            this.cbUseConsole.Text = "Use Server Console";
+            this.cbUseConsole.UseVisualStyleBackColor = true;
+            this.cbUseConsole.CheckedChanged += new System.EventHandler(this.cbUseConsole_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 292);
+            this.ClientSize = new System.Drawing.Size(277, 300);
             this.Controls.Add(this.gbSettings);
             this.Controls.Add(this.gbInfo);
             this.Controls.Add(this.btnStart);
@@ -155,8 +265,11 @@
             this.Text = "[CS:GO] Server Launcher";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.gbInfo.ResumeLayout(false);
+            this.gbInfo.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.gbSettings.ResumeLayout(false);
+            this.gbSettings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -172,6 +285,15 @@
         private System.Windows.Forms.Label lPublicIP;
         private System.Windows.Forms.Label lPrivateIP;
         private System.Windows.Forms.GroupBox gbSettings;
+        private System.Windows.Forms.CheckBox cbUseConsole;
+        private System.Windows.Forms.CheckBox cbUseRcon;
+        private System.Windows.Forms.ComboBox cbbGameMode;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel llNATHowTo;
+        private System.Windows.Forms.TextBox tbMap;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbMapGroup;
+        private System.Windows.Forms.Label label4;
     }
 }
 

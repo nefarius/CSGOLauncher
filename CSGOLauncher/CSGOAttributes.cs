@@ -5,22 +5,10 @@ using System.Text;
 
 namespace CSGOLauncher
 {
-    [Serializable()]
-    class CSGOAttributes : SRCDSAttributes
+    public class CSGOAttributes : SRCDSAttributes
     {
-        private GameModes _GameMode;
-        public GameModes GameMode
-        {
-            get { return this._GameMode; }
-            set { this._GameMode = value; }
-        }
-
-        private string _MapGroup;
-        public string MapGroup
-        {
-            get { return this._MapGroup; }
-            set { this._MapGroup = value; }
-        }
+        public GameModes GameMode { get; set; }
+        public string MapGroup { get; set; }
 
         public override string GetComandLine()
         {
@@ -47,18 +35,22 @@ namespace CSGOLauncher
                     cmdLine.AppendFormat(strGameTypeLine, 1, 1);
                     break;
             }
-            cmdLine.AppendFormat("+mapgroup {0} ", MapGroup);
-            cmdLine.AppendFormat("+map {0} ", Map);
-            cmdLine.AppendFormat("+ip {0} ", LocalIP);
-            cmdLine.AppendFormat("+net_public_adr {0} ", PublicIP);
+            if(!string.IsNullOrEmpty(MapGroup)) 
+                cmdLine.AppendFormat("+mapgroup {0} ", MapGroup);
+            if(!string.IsNullOrEmpty(Map))
+                cmdLine.AppendFormat("+map {0} ", Map);
+            if(!string.IsNullOrEmpty(PrivateIP))
+                cmdLine.AppendFormat("+ip {0} ", PrivateIP);
+            if(!string.IsNullOrEmpty(PublicIP))
+                cmdLine.AppendFormat("+net_public_adr {0} ", PublicIP);
 
             return cmdLine.ToString();
         }
     }
 
-    enum GameModes
+    public enum GameModes
     {
-        Casual = 1,
+        Casual,
         Competitive,
         ArmsRace,
         Demolition

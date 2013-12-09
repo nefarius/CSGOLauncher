@@ -11,11 +11,21 @@ namespace CSGOLauncher
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            if (args.Length > 0)
+            {
+                CSGOAttributes curSrv = LauncherConfig.StoredConfiguration;
+                curSrv.PublicIP = IPHelper.PublicIpAddress;
+                curSrv.PrivateIP = IPHelper.PrivateIpAddress;
+                curSrv.StartServer();
+            }
+            else
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainWindow());
+            }
         }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="CSGOAttributes.cs" />
     <Compile Include="IPHelper.cs" />
     <Compile Include="ISRCDSCommands.cs" />
+    <Compile Include="LauncherConfig.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

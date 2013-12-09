@@ -10,14 +10,14 @@ namespace CSGOLauncher
 {
     static class LauncherConfig
     {
-        private static string CurrentDirectory
+        public static string CurrentDirectory
         {
             get { return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); }
         }
 
         private static string ConfigFileName
         {
-            get { return "launcher.cfg"; }
+            get { return "csgo_launcher.cfg"; }
         }
 
         private static string ConfigFilePath
@@ -29,11 +29,15 @@ namespace CSGOLauncher
         {
             get
             {
-                using (StreamReader str = new StreamReader(ConfigFilePath))
+                try
                 {
-                    XmlSerializer ser = new XmlSerializer(typeof(CSGOAttributes));
-                    return (CSGOAttributes)ser.Deserialize(str);
+                    using (StreamReader str = new StreamReader(ConfigFilePath))
+                    {
+                        XmlSerializer ser = new XmlSerializer(typeof(CSGOAttributes));
+                        return (CSGOAttributes)ser.Deserialize(str);
+                    }
                 }
+                catch (FileNotFoundException) { return new CSGOAttributes(); }
             }
             set
             {
