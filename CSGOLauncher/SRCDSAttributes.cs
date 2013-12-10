@@ -25,6 +25,12 @@ namespace CSGOLauncher
         public string PublicIP { get; set; }
         public string Map { get; set; }
         public bool LanMode { get; set; }
+        public bool UseUPnP { get; set; }
+        public int Port { get; set; }
+        public static int DefaultPort
+        {
+            get { return 27015; }
+        }
 
         public virtual string GetComandLine()
         {

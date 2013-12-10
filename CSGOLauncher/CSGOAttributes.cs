@@ -16,6 +16,8 @@ namespace CSGOLauncher
             if (UseConsole) cmdLine.Append("-console ");
             if (UseRcon) cmdLine.AppendFormat("-usercon ");
             if (AutoUpdate) cmdLine.AppendFormat("-autoupdate ");
+            if (Port > 0 && Port <= 65535) 
+                cmdLine.AppendFormat("-port {0} ", Port);
             switch (GameMode)
             {
                 case GameModes.ArmsRace:

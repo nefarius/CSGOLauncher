@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Net.Sockets;
 
 namespace CSGOLauncher
 {
@@ -34,6 +35,10 @@ namespace CSGOLauncher
 
             curCfg.PublicIP = lPublicIP.Text = IPHelper.PublicIpAddress;
             curCfg.PrivateIP = lPrivateIP.Text = IPHelper.PrivateIpAddress;
+            cbTryUPnP.Checked = curCfg.UseUPnP;
+            // On first run port number will be zero; set to default
+            if (curCfg.Port > 0) tbPort.Text = curCfg.Port.ToString();
+            else curCfg.Port = SRCDSAttributes.DefaultPort;
 
             foreach (GameModes mode in (GameModes[])Enum.GetValues(typeof(GameModes)))
             {
@@ -82,6 +87,79 @@ namespace CSGOLauncher
         private void cbLanMode_CheckedChanged(object sender, EventArgs e)
         {
             curCfg.LanMode = (sender as CheckBox).Checked;
+        }
+
+        private void cbTryUPnP_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if ((curCfg.UseUPnP = (sender as CheckBox).Checked))
+                {
+                    if (UPnP.NAT.Discover())
+                    {
+                        lUPnPWANIP.Text = UPnP.NAT.ExternalIP.ToString();
+                        if (!curCfg.LanMode)
+                            UPnP.NAT.ForwardPort(curCfg.Port, ProtocolType.Udp, "CSGO-Server (Game)");
+                        if (curCfg.UseRcon)
+                            UPnP.NAT.ForwardPort(curCfg.Port, ProtocolType.Tcp, "CSGO-Server (RCON)");
+                        lUPnPStat.Text = "OK";
+                    }
+                    else
+                    {
+                        lUPnPWANIP.Text = "Unable";
+                        lUPnPStat.Text = "No device found";
+                    }
+                }
+                else
+                {
+                    if (UPnP.NAT.Discover())
+                    {
+                        if (!curCfg.LanMode)
+                            UPnP.NAT.DeleteForwardingRule(curCfg.Port, ProtocolType.Udp);
+                        if (curCfg.UseRcon)
+                            UPnP.NAT.DeleteForwardingRule(curCfg.Port, ProtocolType.Tcp);
+                        lUPnPWANIP.Text = lUPnPStat.Text = "Unused";
+                    }
+                }
+            }
+            catch
+            {
+                lUPnPStat.Text = lUPnPWANIP.Text = "Error";
+            }
+        }
+
+        private void tbPort_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsDigit(e.KeyChar)
+                && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if (e.KeyChar == '.'
+                && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbPort_Validated(object sender, EventArgs e)
+        {
+            curCfg.Port = int.Parse((sender as TextBox).Text);
+        }
+
+        private void tbPort_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var tb = (sender as TextBox);
+            int value = int.Parse(tb.Text);
+
+            if (value < 1 || value > 65535)
+            {
+                e.Cancel = true;
+                tb.Text = "27015";
+            }
         }
     }
 }
