@@ -12,6 +12,7 @@ using CSGOLauncher;
  * Project origin:  http://www.codeproject.com/Articles/27992/NAT-Traversal-with-UPnP-in-C
  * Original author: http://www.codeproject.com/Members/Harold-Aptroot
  * Modified by:     Benjamin "Nefarius" Höglinger <nefarius@dhmx.at>
+ *                  http://nefarius.at/
  * */
 namespace UPnP
 {
@@ -24,6 +25,11 @@ namespace UPnP
             set { _timeout = value; }
         }
         static string _descUrl, _serviceUrl, _eventUrl;
+
+        /// <summary>
+        /// Sends out a NOTIFY request and waits for an answer.
+        /// </summary>
+        /// <returns>Returns true on success and false if no answer was received.</returns>
         public static bool Discover()
         {
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -99,17 +105,53 @@ namespace UPnP
             return resp.Substring(0, n) + p;
         }
 
+        /// <summary>
+        /// Requests the UPnP device to forward a specific port to the current hosts local IP address.
+        /// </summary>
+        /// <param name="port">Number of external (e.g. WAN) port to forward.</param>
+        /// <param name="protocol">Desired protocol.</param>
+        /// <param name="description">Description the device should name this new forwarding rule.</param>
         public static void ForwardPort(int port, ProtocolType protocol, string description)
+        {
+            ForwardPort(port, port, IPHelper.PrivateIpAddress, protocol, description);
+        }
+
+        /// <summary>
+        /// Requests the UPnP device to forward a specific external port to a defined internal port at the current hosts local IP address.
+        /// </summary>
+        /// <param name="externalPort">Number of external (e.g. WAN) port to forward.</param>
+        /// <param name="localPort">Number of local port to get forwarded to.</param>
+        /// <param name="protocol">Desired protocol.</param>
+        /// <param name="description">Description the device should name this new forwarding rule.</param>
+        public static void ForwardPort(int externalPort, int localPort, ProtocolType protocol, string description)
+        {
+            ForwardPort(externalPort, localPort, IPHelper.PrivateIpAddress, protocol, description);
+        }
+
+        /// <summary>
+        /// Requests the UPnP device to forward a specific port to a defined internal IP address and port number.
+        /// </summary>
+        /// <param name="externalPort">Number of external (e.g. WAN) port to forward.</param>
+        /// <param name="localPort">Number of local port to get forwarded to.</param>
+        /// <param name="localIP">Desired target hosts local IP address.</param>
+        /// <param name="protocol">Desired protocol.</param>
+        /// <param name="description">Description the device should name this new forwarding rule.</param>
+        public static void ForwardPort(int externalPort, int localPort, string localIP, ProtocolType protocol, string description)
         {
             if (string.IsNullOrEmpty(_serviceUrl))
                 throw new Exception("No UPnP service available or Discover() has not been called");
             XmlDocument xdoc = SOAPRequest(_serviceUrl, "<u:AddPortMapping xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">" +
-                "<NewRemoteHost></NewRemoteHost><NewExternalPort>" + port.ToString() + "</NewExternalPort><NewProtocol>" + protocol.ToString().ToUpper() + "</NewProtocol>" +
-                "<NewInternalPort>" + port.ToString() + "</NewInternalPort><NewInternalClient>" + IPHelper.PrivateIpAddress +
+                "<NewRemoteHost></NewRemoteHost><NewExternalPort>" + externalPort.ToString() + "</NewExternalPort><NewProtocol>" + protocol.ToString().ToUpper() + "</NewProtocol>" +
+                "<NewInternalPort>" + localPort.ToString() + "</NewInternalPort><NewInternalClient>" + localIP +
                 "</NewInternalClient><NewEnabled>1</NewEnabled><NewPortMappingDescription>" + description +
             "</NewPortMappingDescription><NewLeaseDuration>0</NewLeaseDuration></u:AddPortMapping>", "AddPortMapping");
         }
 
+        /// <summary>
+        /// Requests the UPnP device to delete a specified forwarded external port.
+        /// </summary>
+        /// <param name="port">Number of external (e.g. WAN) port which is currently forwarded.</param>
+        /// <param name="protocol">The protocol the target forwarding is registered under.</param>
         public static void DeleteForwardingRule(int port, ProtocolType protocol)
         {
             if (string.IsNullOrEmpty(_serviceUrl))
@@ -123,16 +165,22 @@ namespace UPnP
             "</u:DeletePortMapping>", "DeletePortMapping");
         }
 
-        public static IPAddress GetExternalIP()
+        /// <summary>
+        /// Returns the WAN IP address the UPnP device discovered. This doesn't have to be the public IP address.
+        /// </summary>
+        public static IPAddress ExternalIP
         {
-            if (string.IsNullOrEmpty(_serviceUrl))
-                throw new Exception("No UPnP service available or Discover() has not been called");
-            XmlDocument xdoc = SOAPRequest(_serviceUrl, "<u:GetExternalIPAddress xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">" +
-            "</u:GetExternalIPAddress>", "GetExternalIPAddress");
-            XmlNamespaceManager nsMgr = new XmlNamespaceManager(xdoc.NameTable);
-            nsMgr.AddNamespace("tns", "urn:schemas-upnp-org:device-1-0");
-            string IP = xdoc.SelectSingleNode("//NewExternalIPAddress/text()", nsMgr).Value;
-            return IPAddress.Parse(IP);
+            get
+            {
+                if (string.IsNullOrEmpty(_serviceUrl))
+                    throw new Exception("No UPnP service available or Discover() has not been called");
+                XmlDocument xdoc = SOAPRequest(_serviceUrl, "<u:GetExternalIPAddress xmlns:u=\"urn:schemas-upnp-org:service:WANIPConnection:1\">" +
+                "</u:GetExternalIPAddress>", "GetExternalIPAddress");
+                XmlNamespaceManager nsMgr = new XmlNamespaceManager(xdoc.NameTable);
+                nsMgr.AddNamespace("tns", "urn:schemas-upnp-org:device-1-0");
+                string IP = xdoc.SelectSingleNode("//NewExternalIPAddress/text()", nsMgr).Value;
+                return IPAddress.Parse(IP);
+            }
         }
 
         private static XmlDocument SOAPRequest(string url, string soap, string function)
