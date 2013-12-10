@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace CSGOLauncher
 {
@@ -46,6 +47,20 @@ namespace CSGOLauncher
                 }
 
                 return ip.Matches(content)[0].ToString();
+            }
+        }
+
+        /// <summary>
+        /// Returns the default gateway.
+        /// </summary>
+        public static string DefaultGateway
+        {
+            get
+            {
+                return NetworkInterface.GetAllNetworkInterfaces()
+                .Where(i => i.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                .FirstOrDefault().GetIPProperties().GatewayAddresses
+                .FirstOrDefault().Address.ToString();
             }
         }
 
