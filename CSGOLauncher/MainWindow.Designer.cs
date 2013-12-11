@@ -55,6 +55,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbUseRcon = new System.Windows.Forms.CheckBox();
             this.cbUseConsole = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.gbInfo.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbSettings.SuspendLayout();
@@ -226,6 +227,7 @@
             // 
             this.gbSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbSettings.Controls.Add(this.label9);
             this.gbSettings.Controls.Add(this.tbPort);
             this.gbSettings.Controls.Add(this.label8);
             this.gbSettings.Controls.Add(this.cbLanMode);
@@ -352,6 +354,15 @@
             this.cbUseConsole.UseVisualStyleBackColor = true;
             this.cbUseConsole.CheckedChanged += new System.EventHandler(this.cbUseConsole_CheckedChanged);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(105, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(118, 13);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "(game data and RCON)";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -406,6 +417,7 @@
         private System.Windows.Forms.CheckBox cbTryUPnP;
         private System.Windows.Forms.TextBox tbPort;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }
 
