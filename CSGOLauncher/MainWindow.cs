@@ -161,5 +161,13 @@ namespace CSGOLauncher
                 tb.Text = "27015";
             }
         }
+
+        private void cbUpdatePublicIP_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((curCfg.UpdatePublicIP = (sender as CheckBox).Checked))
+            {
+                curCfg.PublicIP = lPublicIP.Text = IPHelper.PublicIpAddress;
+            }
+        }
     }
 }

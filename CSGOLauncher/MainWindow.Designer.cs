@@ -44,6 +44,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lUPnPStat = new System.Windows.Forms.Label();
             this.gbSettings = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.tbPort = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cbLanMode = new System.Windows.Forms.CheckBox();
@@ -55,7 +56,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbUseRcon = new System.Windows.Forms.CheckBox();
             this.cbUseConsole = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.cbUpdatePublicIP = new System.Windows.Forms.CheckBox();
             this.gbInfo.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbSettings.SuspendLayout();
@@ -64,7 +65,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(157, 390);
+            this.btnClose.Location = new System.Drawing.Point(157, 406);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(108, 23);
             this.btnClose.TabIndex = 0;
@@ -75,7 +76,7 @@
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(43, 390);
+            this.btnStart.Location = new System.Drawing.Point(43, 406);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(108, 23);
             this.btnStart.TabIndex = 1;
@@ -87,12 +88,13 @@
             // 
             this.gbInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbInfo.Controls.Add(this.cbUpdatePublicIP);
             this.gbInfo.Controls.Add(this.cbTryUPnP);
             this.gbInfo.Controls.Add(this.llNATHowTo);
             this.gbInfo.Controls.Add(this.tableLayoutPanel1);
             this.gbInfo.Location = new System.Drawing.Point(13, 13);
             this.gbInfo.Name = "gbInfo";
-            this.gbInfo.Size = new System.Drawing.Size(252, 159);
+            this.gbInfo.Size = new System.Drawing.Size(252, 175);
             this.gbInfo.TabIndex = 2;
             this.gbInfo.TabStop = false;
             this.gbInfo.Text = "Network";
@@ -112,7 +114,7 @@
             // 
             this.llNATHowTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.llNATHowTo.AutoSize = true;
-            this.llNATHowTo.Location = new System.Drawing.Point(6, 138);
+            this.llNATHowTo.Location = new System.Drawing.Point(6, 154);
             this.llNATHowTo.Name = "llNATHowTo";
             this.llNATHowTo.Size = new System.Drawing.Size(234, 13);
             this.llNATHowTo.TabIndex = 1;
@@ -239,12 +241,21 @@
             this.gbSettings.Controls.Add(this.label3);
             this.gbSettings.Controls.Add(this.cbUseRcon);
             this.gbSettings.Controls.Add(this.cbUseConsole);
-            this.gbSettings.Location = new System.Drawing.Point(13, 182);
+            this.gbSettings.Location = new System.Drawing.Point(13, 198);
             this.gbSettings.Name = "gbSettings";
             this.gbSettings.Size = new System.Drawing.Size(252, 202);
             this.gbSettings.TabIndex = 3;
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Settings";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(105, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(118, 13);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "(game data and RCON)";
             // 
             // tbPort
             // 
@@ -354,20 +365,24 @@
             this.cbUseConsole.UseVisualStyleBackColor = true;
             this.cbUseConsole.CheckedChanged += new System.EventHandler(this.cbUseConsole_CheckedChanged);
             // 
-            // label9
+            // cbUpdatePublicIP
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(105, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(118, 13);
-            this.label9.TabIndex = 11;
-            this.label9.Text = "(game data and RCON)";
+            this.cbUpdatePublicIP.AutoSize = true;
+            this.cbUpdatePublicIP.Checked = true;
+            this.cbUpdatePublicIP.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbUpdatePublicIP.Location = new System.Drawing.Point(12, 133);
+            this.cbUpdatePublicIP.Name = "cbUpdatePublicIP";
+            this.cbUpdatePublicIP.Size = new System.Drawing.Size(176, 17);
+            this.cbUpdatePublicIP.TabIndex = 3;
+            this.cbUpdatePublicIP.Text = "Update public IP address online";
+            this.cbUpdatePublicIP.UseVisualStyleBackColor = true;
+            this.cbUpdatePublicIP.CheckedChanged += new System.EventHandler(this.cbUpdatePublicIP_CheckedChanged);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(277, 425);
+            this.ClientSize = new System.Drawing.Size(277, 441);
             this.Controls.Add(this.gbSettings);
             this.Controls.Add(this.gbInfo);
             this.Controls.Add(this.btnStart);
@@ -418,6 +433,7 @@
         private System.Windows.Forms.TextBox tbPort;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox cbUpdatePublicIP;
     }
 }
 

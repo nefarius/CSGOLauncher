@@ -20,9 +20,8 @@ namespace CSGOLauncher
         // This property tends to change, don't save it
         [XmlIgnore]
         public string PrivateIP { get; set; }
-        // This property tends to change, don't save it
-        [XmlIgnore]
         public string PublicIP { get; set; }
+        public bool UpdatePublicIP { get; set; }
         public string Map { get; set; }
         public bool LanMode { get; set; }
         public bool UseUPnP { get; set; }

@@ -17,8 +17,11 @@ namespace CSGOLauncher
             {
                 // Load stored configuration
                 CSGOAttributes curSrv = LauncherConfig.StoredConfiguration;
-                // Refresh IP information (may have changed since last run)
-                curSrv.PublicIP = IPHelper.PublicIpAddress;
+                if (curSrv.UpdatePublicIP)
+                {
+                    // Refresh IP information (may have changed since last run)
+                    curSrv.PublicIP = IPHelper.PublicIpAddress;
+                }
                 curSrv.PrivateIP = IPHelper.PrivateIpAddress;
                 // Launch SRCDS
                 curSrv.StartServer();
