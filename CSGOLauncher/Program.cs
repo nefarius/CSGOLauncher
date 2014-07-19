@@ -13,6 +13,9 @@ namespace CSGOLauncher
         [STAThread]
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += 
+                new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
             if (args.Length > 0)
             {
                 // Load stored configuration
@@ -32,6 +35,14 @@ namespace CSGOLauncher
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainWindow());
             }
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = e.ExceptionObject as Exception;
+            MessageBox.Show(ex.Message, "An unexpected error occurred", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Application.Exit();
         }
     }
 }
